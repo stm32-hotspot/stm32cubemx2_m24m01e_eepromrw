@@ -1,0 +1,1 @@
+# stm32cubemx2_m24m01e_eepromrw
