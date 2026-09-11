@@ -132,9 +132,9 @@ app_status_t SetupCDARegister(void)
 
   uint8_t writeCDA;
 
-  printf("***************************************************************\r\n");
-  printf("                SETUP CDA REGISTER M24M01E\r\n");
-  printf("***************************************************************\r\n");
+  PRINTF("***************************************************************\r\n");
+  PRINTF("                SETUP CDA REGISTER M24M01E\r\n");
+  PRINTF("***************************************************************\r\n");
 
   /* With Bit 1 set, only M24M01E will respond initially */
 
@@ -145,12 +145,12 @@ app_status_t SetupCDARegister(void)
 
     if (m24m01e_drv_check_device_address(pM24m01e0, 0xB4) != 0)
     {
-      printf("Selected Device address is incorrect. Abort!\r\n");
+      PRINTF("Selected Device address is incorrect. Abort!\r\n");
       return EXEC_STATUS_ERROR;
     }
     else
     {
-      printf("M24M01 CDA: 0x04\r\n");
+      PRINTF("M24M01 CDA: 0x04\r\n");
     }
   }
 
@@ -159,17 +159,17 @@ app_status_t SetupCDARegister(void)
     /* Read CDA register successful with C2 and C1 both as 0*/
 
     PRINTF_APPLI("C1 and C2 bits of CDA in M24M01E are 0. Setting C1 bit of CDA register.\r\n");
-    printf("__Writing CDA Val__M24M01E <C1 Bit Set>\r\n");
+    PRINTF("__Writing CDA Val__M24M01E <C1 Bit Set>\r\n");
     writeCDA = 0x04;
     if (m24m01e_drv_write_cda_register(pM24m01e0, writeCDA) != 0)
     {
-      printf("M24M01E CDA update failed!\r\n");
+      PRINTF("M24M01E CDA update failed!\r\n");
       return EXEC_STATUS_ERROR;
 
     }
     else
     {
-      printf("Updated M24M01E CDA: 0x%2.2X\r\n", writeCDA);
+      PRINTF("Updated M24M01E CDA: 0x%2.2X\r\n", writeCDA);
 
     }
 
@@ -181,21 +181,21 @@ app_status_t SetupCDARegister(void)
   /*
   if (m24m01e_drv_read_cda_register(pM24m01e0, &readCDA) != 0)
   {
-    printf("Selected Device address is incorrect. Abort!\r\n");
+    PRINTF("Selected Device address is incorrect. Abort!\r\n");
     return EXEC_STATUS_ERROR;
   }
   else
   {
-    printf("M24M01E CDA: 0x%2.2X\r\n", readCDA);
+    PRINTF("M24M01E CDA: 0x%2.2X\r\n", readCDA);
     writeCDA = 0x00;
     if (m24m01e_drv_write_cda_register(pM24m01e0, &writeCDA) != 0)
     {
-      printf("Write to M24M01E CDA failed, Device Addr is 0x%2.2X\r\n", M24M01E_CDA_DevSelCode);
+      PRINTF("Write to M24M01E CDA failed, Device Addr is 0x%2.2X\r\n", M24M01E_CDA_DevSelCode);
       return EXEC_STATUS_ERROR;
     }
     else
     {
-      printf("Updated M24M01E CDA: 0x%2.2X\r\n", writeCDA);
+      PRINTF("Updated M24M01E CDA: 0x%2.2X\r\n", writeCDA);
     }
   }
   */
@@ -214,19 +214,19 @@ app_status_t ReadCDARegister(void)
   int32_t return_status;
   app_status_t ret_val;
 
-  printf("\n\n***************************************************************\r\n");
-  printf("                     READ CDA REGISTER M24M01E\r\n");
-  printf("***************************************************************\r\n");
+  PRINTF("\n\n***************************************************************\r\n");
+  PRINTF("                     READ CDA REGISTER M24M01E\r\n");
+  PRINTF("***************************************************************\r\n");
 
   return_status = m24m01e_drv_read_cda_register(pM24m01e0, &readCDA);
 
   if (return_status != 0)
   {
-    printf("[ERROR] Test 1: M24M01E CDA read error\r\n");
+    PRINTF("[ERROR] Test 1: M24M01E CDA read error\r\n");
   }
   else
   {
-    printf("[INFO] Test 1: M24M01E CDA Register Value: 0x%x\r\n", readCDA);
+    PRINTF("[INFO] Test 1: M24M01E CDA Register Value: 0x%x\r\n", readCDA);
   }
 
   if (return_status != 0)
@@ -251,19 +251,19 @@ app_status_t ReadDTIRegister(void)
 
   uint8_t readDTI = 0xFF;
   app_status_t ret_val;
-  printf("\n\n***************************************************************\r\n");
-  printf("            READ DTI REGISTER only for M24M01E\r\n");
-  printf("***************************************************************\r\n");
+  PRINTF("\n\n***************************************************************\r\n");
+  PRINTF("            READ DTI REGISTER only for M24M01E\r\n");
+  PRINTF("***************************************************************\r\n");
 
   if (m24m01e_drv_read_dti_reg(pM24m01e0, &readDTI) != 0)
   {
-    printf("M24M01E DTI Register read Error\r\n");
+    PRINTF("M24M01E DTI Register read Error\r\n");
     ret_val = EXEC_STATUS_ERROR;
 
   }
   else
   {
-    printf("M24M01E DTI Register: 0x%2.2X\r\n", readDTI);
+    PRINTF("M24M01E DTI Register: 0x%2.2X\r\n", readDTI);
     ret_val = EXEC_STATUS_OK;
   }
   return ret_val;
@@ -283,12 +283,12 @@ app_status_t TestM24M01EIDPage(void)
   uint8_t sample_data = 0xAA;
 
 
-  printf("\n\n***************************************************************\r\n");
-  printf("                     TEST M24M01E ID PAGE\r\n");
-  printf("***************************************************************\r\n");
+  PRINTF("\n\n***************************************************************\r\n");
+  PRINTF("                     TEST M24M01E ID PAGE\r\n");
+  PRINTF("***************************************************************\r\n");
 
   /* M24M01E */
-  printf("Read ID Page M24M01E:\r\n");
+  PRINTF("Read ID Page M24M01E:\r\n");
 
   /* Read ID Page */
 
@@ -302,7 +302,7 @@ app_status_t TestM24M01EIDPage(void)
   {
     for (uint16_t idx = 0; idx < M24M01E_PAGESIZE; idx++)
     {
-      printf("0x%2.2X ", Recv_Buff[idx]);
+      PRINTF("0x%2.2X ", Recv_Buff[idx]);
     }
   }
 
@@ -310,7 +310,7 @@ app_status_t TestM24M01EIDPage(void)
   memset(Transmit_Buff, sample_data, M24M01E_PAGESIZE);
   memset(Recv_Buff, 0x00, M24M01E_PAGESIZE);
 
-  printf("\n\nWriting data 0x%x to complete ID page of M24M01E \r\n ", sample_data);
+  PRINTF("\n\nWriting data 0x%x to complete ID page of M24M01E \r\n ", sample_data);
   return_status = m24m01e_drv_write_id_page(pM24m01e0, Transmit_Buff, addr, M24M01E_PAGESIZE);
 
   if (return_status != 0)
@@ -322,7 +322,7 @@ app_status_t TestM24M01EIDPage(void)
     HAL_Delay(5);
     if (m24m01e_drv_read_id_page(pM24m01e0, Recv_Buff, addr, M24M01E_PAGESIZE) != 0)
     {
-      printf("\n\nRead ID Page Error M24M01E \r\n ");
+      PRINTF("\n\nRead ID Page Error M24M01E \r\n ");
       return EXEC_STATUS_ERROR;
     }
     else
@@ -331,7 +331,7 @@ app_status_t TestM24M01EIDPage(void)
       {
         if (Recv_Buff[count] == sample_data)
         {
-          printf("0x%2.2X ", Recv_Buff[count]);
+          PRINTF("0x%2.2X ", Recv_Buff[count]);
         }
         else
         {
@@ -341,11 +341,11 @@ app_status_t TestM24M01EIDPage(void)
 
       if (count == M24M01E_PAGESIZE)
       {
-        printf("\nAll data to M24M01E ID Page written successfully!\r\n");
+        PRINTF("\nAll data to M24M01E ID Page written successfully!\r\n");
       }
       else
       {
-        printf("Error in ID Page write M24M01E.\r\n");
+        PRINTF("Error in ID Page write M24M01E.\r\n");
         return EXEC_STATUS_ERROR;
       }
     }
@@ -359,7 +359,7 @@ app_status_t TestM24M01EIDPage(void)
   }
   else
   {
-    printf("Cleared ID page of M24M01E to 0xFF\r\n ");
+    PRINTF("Cleared ID page of M24M01E to 0xFF\r\n ");
   }
   return EXEC_STATUS_OK;
 }
@@ -377,9 +377,9 @@ app_status_t TestM24M01EMemory(void)
   uint16_t n_page;
   uint8_t test_data = 0x85;
 
-  printf("\n\n***************************************************************\r\n");
-  printf("                     TEST M24M01E MEMORY\r\n");
-  printf("***************************************************************\r\n");
+  PRINTF("\n\n***************************************************************\r\n");
+  PRINTF("                     TEST M24M01E MEMORY\r\n");
+  PRINTF("***************************************************************\r\n");
 
   /* M24M01E */
   /* 1. Read n_page (10) in memory */
@@ -417,7 +417,7 @@ app_status_t TestM24M01EMemory(void)
   }
   else
   {
-    printf("Number of pages exceeds total page in memory of M24M01E. Abort. \r\n");
+    PRINTF("Number of pages exceeds total page in memory of M24M01E. Abort. \r\n");
     return EXEC_STATUS_ERROR;
   }
 
@@ -425,7 +425,7 @@ app_status_t TestM24M01EMemory(void)
 
   memset(Transmit_Buff, test_data, sizeof(Transmit_Buff));
   addr = 0x65;
-  printf("\nWrite 1024 bytes to memory from Address 0x%2.2X \r\n", addr);
+  PRINTF("\nWrite 1024 bytes to memory from Address 0x%2.2X \r\n", addr);
   if (m24m01e_drv_write_data(pM24m01e0, Transmit_Buff, addr, SIZE1024) != 0)
   {
     return EXEC_STATUS_ERROR;
@@ -459,18 +459,18 @@ app_status_t TestM24M01EMemory(void)
       }
       if (idx == SIZE1024)
       {
-        printf("\nWrite Success\r\n");
+        PRINTF("\nWrite Success\r\n");
       }
       else
       {
-        printf("\nWrite Failed\r\n");
+        PRINTF("\nWrite Failed\r\n");
         return EXEC_STATUS_ERROR;
       }
 
       /* Read Page */
 
       memset(Recv_Buff, 0x00, sizeof(Recv_Buff));
-      printf("Read M24M01E %d Memory Pages:\r\n", n_page);
+      PRINTF("Read M24M01E %d Memory Pages:\r\n", n_page);
 
       addr = 0;
       if (n_page <= page_count_M24M01E)
@@ -484,10 +484,10 @@ app_status_t TestM24M01EMemory(void)
           }
           else
           {
-            printf("\n\nPage %d\n Address 0x%2.2X to 0x%2.2X: \r\n", page_idx + 1, addr, addr + M24M01E_PAGESIZE - 1);
+            PRINTF("\n\nPage %d\n Address 0x%2.2X to 0x%2.2X: \r\n", page_idx + 1, addr, addr + M24M01E_PAGESIZE - 1);
             for (idx = 0; idx < M24M01E_PAGESIZE; idx++)
             {
-              printf("0x%2.2X ", Recv_Buff[idx]);
+              PRINTF("0x%2.2X ", Recv_Buff[idx]);
             }
             addr += M24M01E_PAGESIZE;
             memset(Recv_Buff, 0x00, sizeof(Recv_Buff));
@@ -497,7 +497,7 @@ app_status_t TestM24M01EMemory(void)
       }
       else
       {
-        printf("Number of pages exceeds total page in memory of M24M01E. Abort. \r\n");
+        PRINTF("Number of pages exceeds total page in memory of M24M01E. Abort. \r\n");
         return EXEC_STATUS_ERROR;
       }
     }
@@ -506,7 +506,7 @@ app_status_t TestM24M01EMemory(void)
 
   /* 5. Clear memory contents to 0xFF */
   addr = 0;
-  printf("\nReset memory to 0xFF from Address:0x%2.2X \r\n", addr);
+  PRINTF("\nReset memory to 0xFF from Address:0x%2.2X \r\n", addr);
   memset(Transmit_Buff, 0xFF, sizeof(Transmit_Buff));
 
   /* replace n_page with page_count_M24M01E to erase complete memory */
@@ -522,8 +522,8 @@ app_status_t TestM24M01EMemory(void)
     }
 
   }
-  printf("\nMemory contents of M24M01E cleared to 0xFF \r\n");
-  printf("\nM24M01E ALL Test Cases PASSED \r\n");
+  PRINTF("\nMemory contents of M24M01E cleared to 0xFF \r\n");
+  PRINTF("\nM24M01E ALL Test Cases PASSED \r\n");
   return EXEC_STATUS_OK;
 }
 
@@ -534,12 +534,12 @@ app_status_t TestM24M01EMemory(void)
   */
 app_status_t LockCDARegister(void)
 {
-  printf("\n\n***************************************************************\r\n");
-  printf("           LOCK CDA REGISTER (NOTE: IRREVERSIBLE)\r\n");
-  printf("***************************************************************\r\n");
+  PRINTF("\n\n***************************************************************\r\n");
+  PRINTF("           LOCK CDA REGISTER (NOTE: IRREVERSIBLE)\r\n");
+  PRINTF("***************************************************************\r\n");
 
 #if (!LOCK_CDA_REG_EXECUTE)
-  printf("[WARN] Enable LOCK_CDA_REG_EXECUTE in Application to execute! \r\n");
+  PRINTF("[WARN] Enable LOCK_CDA_REG_EXECUTE in Application to execute! \r\n");
   return EXEC_STATUS_OK;
 #else
 
@@ -549,22 +549,22 @@ app_status_t LockCDARegister(void)
   /* Read CDA Register of M24M01E */
   if (m24m01e_drv_read_cda_register(pM24m01e0, &readCDA) != 0)
   {
-    printf("M24M01E CDA Register Read Error\r\n");
+    PRINTF("M24M01E CDA Register Read Error\r\n");
     return EXEC_STATUS_ERROR;
 
   }
   else
   {
-    printf("M24M01E CDA Register: 0x%2.2X\r\n", readCDA);
+    PRINTF("M24M01E CDA Register: 0x%2.2X\r\n", readCDA);
   }
 
   /* Write CDA Register of M24M01E, Set C2 (Bit 3) */
-  printf("Setting C2 (Bit 3) and DAL (Bit 0) of CDA register in M24M01E . . .\r\n");
+  PRINTF("Setting C2 (Bit 3) and DAL (Bit 0) of CDA register in M24M01E . . .\r\n");
   writeCDA = 0x09;
 
   if (m24m01e_drv_write_cda_register(pM24m01e0, writeCDA) != 0)
   {
-    printf("M24M01E CDA Register Write Error\r\n");
+    PRINTF("M24M01E CDA Register Write Error\r\n");
     return EXEC_STATUS_ERROR;
   }
   else
@@ -573,39 +573,39 @@ app_status_t LockCDARegister(void)
 
     if (m24m01e_drv_read_cda_register(pM24m01e0, &readCDA) != 0)
     {
-      printf("M24M01E CDA Register Read Error\r\n");
+      PRINTF("M24M01E CDA Register Read Error\r\n");
       return EXEC_STATUS_ERROR;
     }
     else
     {
-      printf("Updated M24M01E CDA Register: 0x%2.2X\r\n", readCDA);
+      PRINTF("Updated M24M01E CDA Register: 0x%2.2X\r\n", readCDA);
     }
 
   }
 
   /* Write CDA Register of M24M01E, Clear C2 (Bit 3) */
-  printf("Attempting clearing C2 (Bit 3) of CDA register in M24M01E . . .\r\n");
+  PRINTF("Attempting clearing C2 (Bit 3) of CDA register in M24M01E . . .\r\n");
   writeCDA = 0x00;
 
   if (m24m01e_drv_write_cda_register(pM24m01e0, writeCDA) != 0)
   {
-    printf("Clearing C2 (Bit 3) of CDA register in M24M01E failed as expected . . .\r\n");
+    PRINTF("Clearing C2 (Bit 3) of CDA register in M24M01E failed as expected . . .\r\n");
     HAL_Delay(5); /* Tw max is 5ms */
     if (m24m01e_drv_read_cda_register(pM24m01e0, &readCDA) != 0)
     {
-      printf("M24M01E CDA Register Read Error\r\n");
+      PRINTF("M24M01E CDA Register Read Error\r\n");
       return EXEC_STATUS_ERROR;
     }
     else
     {
-      printf("M24M01E CDA Register: 0x%2.2X\r\n", readCDA);
+      PRINTF("M24M01E CDA Register: 0x%2.2X\r\n", readCDA);
     }
 
   }
   else
   {
-    printf("Clearing C2 bit of CDA register in M24M01E done successfully with DAL bit set. Undefined behaviour!\r\n");
-    printf("M24M01E CDA Register Error\r\n");
+    PRINTF("Clearing C2 bit of CDA register in M24M01E done successfully with DAL bit set. Undefined behaviour!\r\n");
+    PRINTF("M24M01E CDA Register Error\r\n");
     return EXEC_STATUS_UNKNOWN;
   }
   return EXEC_STATUS_OK;
@@ -619,12 +619,12 @@ app_status_t LockCDARegister(void)
   */
 app_status_t TestM24M01ELockIDPage(void)
 {
-  printf("\n\n***************************************************************\r\n");
-  printf("           LOCK ID PAGE (NOTE: IRREVERSIBLE)\r\n");
-  printf("***************************************************************\r\n");
+  PRINTF("\n\n***************************************************************\r\n");
+  PRINTF("           LOCK ID PAGE (NOTE: IRREVERSIBLE)\r\n");
+  PRINTF("***************************************************************\r\n");
 
 #if (!LOCK_ID_PAGE_EXECUTE)
-  printf("[WARN] Enable LOCK_ID_PAGE_EXECUTE in Application to execute! \r\n");
+  PRINTF("[WARN] Enable LOCK_ID_PAGE_EXECUTE in Application to execute! \r\n");
   return EXEC_STATUS_OK;
 #else
   app_status_t ret;
@@ -634,7 +634,7 @@ app_status_t TestM24M01ELockIDPage(void)
   }
   else
   {
-    printf("Permanently Locked ID page of M24M01E. \r\n ");
+    PRINTF("Permanently Locked ID page of M24M01E. \r\n ");
     ret = EXEC_STATUS_OK;
   }
   return ret;
@@ -651,18 +651,18 @@ app_status_t ReadSWPRegister(void)
   uint8_t readSWP = 0xFF;
   app_status_t ret;
 
-  printf("\n\n***************************************************************\r\n");
-  printf("            TEST SWP REGISTER only for M24M01E\r\n");
-  printf("***************************************************************\r\n");
+  PRINTF("\n\n***************************************************************\r\n");
+  PRINTF("            TEST SWP REGISTER only for M24M01E\r\n");
+  PRINTF("***************************************************************\r\n");
 
   if (m24m01e_drv_read_swp_register(pM24m01e0, &readSWP) != 0)
   {
-    printf("M24M01E SWP Register Read Error\r\n");
+    PRINTF("M24M01E SWP Register Read Error\r\n");
     ret =  EXEC_STATUS_ERROR;
   }
   else
   {
-    printf("M24M01E SWP Register: 0x%2.2X\r\n", readSWP);
+    PRINTF("M24M01E SWP Register: 0x%2.2X\r\n", readSWP);
     ret = EXEC_STATUS_OK;
   }
   return ret;
@@ -698,12 +698,12 @@ app_status_t WriteSWPRegister(void)
     }
     else
     {
-      printf("Modified M24M01E SWP Register to: 0x%2.2X. Complete memory locked.\r\n", readSWP);
-      printf("Attempt to write to memory from Address 0x%2.2X with %d bytes of data. . .\r\n", addr, nbytes);
+      PRINTF("Modified M24M01E SWP Register to: 0x%2.2X. Complete memory locked.\r\n", readSWP);
+      PRINTF("Attempt to write to memory from Address 0x%2.2X with %d bytes of data. . .\r\n", addr, nbytes);
       memset(Transmit_Buff, testdata, sizeof(Transmit_Buff));
       if (m24m01e_drv_write_data(pM24m01e0, Transmit_Buff, addr, nbytes) != 0)
       {
-        printf("Write failed as expected\r\n");
+        PRINTF("Write failed as expected\r\n");
       }
       else
       {
@@ -734,7 +734,7 @@ app_status_t WriteSWPRegister(void)
         }
         if (idx == nbytes)
         {
-          printf("Checked, data not written to memory as expected\r\n");
+          PRINTF("Checked, data not written to memory as expected\r\n");
 
         }
       }
@@ -757,7 +757,7 @@ app_status_t WriteSWPRegister(void)
     }
     else
     {
-      printf("Updated M24M01E SWP Register: 0x%2.2X\r\n", readSWP);
+      PRINTF("Updated M24M01E SWP Register: 0x%2.2X\r\n", readSWP);
     }
   }
   return ret;
